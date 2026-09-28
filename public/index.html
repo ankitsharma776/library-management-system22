@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>📚 Library Management System</h1>
+      <p>Full-stack internship project</p>
+    </div>
+    <span class="status">● System Online</span>
+  </header>
+
+  <main class="container">
+    <section class="stats">
+      <div class="stat-card"><span>Total Books</span><strong id="bookCount">0</strong></div>
+      <div class="stat-card"><span>Total Members</span><strong id="memberCount">0</strong></div>
+      <div class="stat-card"><span>Books Issued</span><strong id="issuedCount">0</strong></div>
+      <div class="stat-card"><span>Overdue</span><strong id="overdueCount">0</strong></div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-section="dashboard">Dashboard</button>
+      <button class="tab" data-section="books">Books</button>
+      <button class="tab" data-section="members">Members</button>
+      <button class="tab" data-section="issue">Issue / Return</button>
+    </nav>
+
+    <section id="dashboard" class="section active">
+      <div class="panel">
+        <h2>Welcome</h2>
+        <p>Manage books, members, and issue/return transactions from one place.</p>
+        <div class="feature-grid">
+          <div><b>CRUD Operations</b><span>Add, update and delete records.</span></div>
+          <div><b>Search & Validation</b><span>Find records and validate input.</span></div>
+          <div><b>Database</b><span>SQLite stores persistent data.</span></div>
+          <div><b>Responsive UI</b><span>Works on desktop and mobile.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="books" class="section">
+      <div class="section-head">
+        <div>
+          <h2>Books</h2>
+          <p>Add and manage library books.</p>
+        </div>
+        <button class="primary" onclick="openBookForm()">+ Add Book</button>
+      </div>
+      <div class="toolbar">
+        <input id="bookSearch" placeholder="Search by title, author or ISBN">
+        <button onclick="loadBooks()">Search</button>
+      </div>
+      <div class="panel table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Qty</th><th>Available</th><th>Actions</th></tr></thead>
+          <tbody id="booksTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="members" class="section">
+      <div class="section-head">
+        <div>
+          <h2>Members</h2>
+          <p>Manage library members.</p>
+        </div>
+        <button class="primary" onclick="openMemberForm()">+ Add Member</button>
+      </div>
+      <div class="toolbar">
+        <input id="memberSearch" placeholder="Search by name, email or phone">
+        <button onclick="loadMembers()">Search</button>
+      </div>
+      <div class="panel table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead>
+          <tbody id="membersTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="issue" class="section">
+      <div class="section-head">
+        <div>
+          <h2>Issue / Return</h2>
+          <p>Issue an available book and process returns.</p>
+        </div>
+      </div>
+
+      <div class="panel form-panel">
+        <h3>Issue a Book</h3>
+        <form id="issueForm">
+          <select id="issueBook" required><option value="">Select book</option></select>
+          <select id="issueMember" required><option value="">Select member</option></select>
+          <label>Due date<input type="date" id="dueDate" required></label>
+          <button class="primary" type="submit">Issue Book</button>
+        </form>
+      </div>
+
+      <div class="panel table-wrap">
+        <h3>Transaction History</h3>
+        <table>
+          <thead><tr><th>ID</th><th>Book</th><th>Member</th><th>Issue Date</th><th>Due Date</th><th>Return Date</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="transactionsTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal()">×</button>
+      <h2 id="modalTitle">Form</h2>
+      <form id="modalForm"></form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
